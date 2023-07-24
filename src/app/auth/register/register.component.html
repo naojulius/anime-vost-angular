@@ -1,0 +1,74 @@
+<form #f="ngForm" name="f" (ngSubmit)="f.form.valid && register()">
+<div class="hero min-h-screen bg-base-200" style="background: url('/assets/images/covers/6.jpg'); background-repeat: no-repeat; background-size: cover;">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <div class="text-center lg:text-left">
+        <h1 class="text-5xl font-bold text-white">Anime Is Life [<span class="text-yellow-400">MADA</span>]</h1>
+        <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+      </div>
+      <div class="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100 ">
+        <div class="card-body">
+          <div class="form-control">
+            <div class="flex flex-col w-full lg:flex-row">
+              <input type="text" placeholder="Nom" class="input input-bordered"  #nameInput="ngModel" [(ngModel)]="registrationInfo.name" name="name" required /> 
+              <div class="divider lg:divider-horizontal"></div> 
+              <input type="text" placeholder="Prénom" class="input input-bordered"  #surNameInput="ngModel" [(ngModel)]="registrationInfo.surname" name="surname" required  /> 
+            </div>
+            <label class="label" *ngIf="f.submitted && nameInput.invalid">
+              <span class="label-text-alt text-yellow-600" *ngIf="nameInput.errors?.['required']">Ces champs sont recquis</span>
+            </label>
+          </div>
+          <div class="form-control">
+            <input  placeholder="Date de naissance" class="input input-bordered w-full" #birthDateInput="ngModel" [(ngModel)]="registrationInfo.birthDate" name="birthDate"  [owlDateTimeTrigger]="birthDate" [owlDateTime]="birthDate"  required/>
+            <owl-date-time [pickerType]="'calendar'" #birthDate></owl-date-time>
+            <label class="label" *ngIf="f.submitted && birthDateInput.invalid">
+              <span class="label-text-alt text-yellow-600" *ngIf="birthDateInput.errors?.['required']">Ce champ est recquis</span>
+            </label>
+          </div>
+          <div class="form-control">
+            <input type="text" placeholder="Adresse" class="input input-bordered"  #addressInput="ngModel" [(ngModel)]="registrationInfo.address" name="address" required  />
+            <label class="label" *ngIf="f.submitted && addressInput.invalid">
+              <span class="label-text-alt text-yellow-600" *ngIf="addressInput.errors?.['required']">Ce champ est recquis</span>
+            </label>
+          </div>
+          <hr>
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text">Homme</span> 
+              <input type="radio" name="radio-10" class="radio checked:bg-red-500" value="MALE" checked #genderInput="ngModel" [(ngModel)]="registrationInfo.gender" name="gender"  required/>
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text">Femme</span> 
+              <input type="radio" name="radio-10" class="radio checked:bg-blue-500" value="FEMALE" #genderInput="ngModel"  [(ngModel)]="registrationInfo.gender" name="gender"  required/>
+            </label>
+          </div>
+          <label class="label" *ngIf="f.submitted && genderInput.invalid">
+            <span class="label-text-alt text-yellow-600" *ngIf="genderInput.errors?.['required']">Ce champ est recquis</span>
+          </label>
+          <hr>
+          <div class="form-control">
+            <input type="email" placeholder="E-mail" class="input input-bordered"  #emailInput="ngModel" [(ngModel)]="registrationInfo.email" name="email" required  />
+            <label class="label" *ngIf="f.submitted && emailInput.invalid">
+              <span class="label-text-alt text-yellow-600" *ngIf="emailInput.errors?.['required']">Ce champ est recquis</span>
+              <span class="label-text-alt text-yellow-600" *ngIf="emailInput.errors?.['email']">E-mail invalide</span>
+            </label>
+          </div>
+          <div class="form-control">
+            <input type="password" placeholder="Mot de passe" class="input input-bordered {{password_not_matched}}"  #passwordInput="ngModel" [(ngModel)]="registrationInfo.password" name="password" required  />
+          </div>
+          <div class="form-control">
+            <input type="password" placeholder="Confirmation mot de pass" class="input input-bordered {{password_not_matched}}" #passwordInput="ngModel" [(ngModel)]="registrationInfo.password_confirm" name="password_confirm" required/>
+            <label class="label" *ngIf="password_not_matched != ''">
+              <span class="label-text text-xs text-yellow-600">Mot de passe non identique.</span>
+            </label>
+          </div>
+          <div class="form-control mt-6 flex flex-row">
+            <button *ngIf="!loading"  type="submit" class="btn btn-warning w-full ">Register</button>
+            <button *ngIf="loading" disabled="disabled"  class="btn btn-warning w-full" type="submit"><span  class="loading loading-spinner"></span> Registering ...</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

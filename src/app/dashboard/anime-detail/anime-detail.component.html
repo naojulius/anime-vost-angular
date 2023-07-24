@@ -1,0 +1,101 @@
+<div class="p-5">
+  <div class="bg-white shadow-lg border-gray-100 	 border sm:rounded-3xl p-8 flex space-x-8">
+    <div class=" w-1/2">
+      <img *ngIf="!anime.trailer && show_cover_img" class="rounded-3xl shadow-lg" src="{{image}}/covers&{{anime.cover}}" alt="cover">
+      <video *ngIf="anime.trailer || episodes.length>0" class="rounded-3xl shadow-lg" controls muted>
+        <source src="{{videoStream}}" type="video/mp4">
+      </video>
+      <div class="p-3" *ngIf="streamInfo.episode && streamInfo.season">
+          <div>
+            <h2 class="font-bold">Saison:{{streamInfo.season}},   Episode: {{streamInfo.episode}}</h2>
+          </div>
+      </div>
+      <div class="p-3">
+        <button  *ngIf="!loading" class="btn btn-warning rounded-none" onclick="my_modal_1.showModal()">Ajout Video</button>
+        <button *ngIf="loading" type="button" disabled class="btn btn-warning  rounded-none"><span  class="loading loading-spinner"></span> Telechargement de la video ..</button>
+      </div>
+    </div>
+    <div class="flex flex-col w-1/2 space-y-4">
+      <div class="flex justify-between items-start">
+        <h2 class="text-3xl font-bold">{{anime.title}}</h2>
+        <div class="bg-yellow-400 font-bold rounded-xl p-2  mask mask-star-2 shadow-2xl">{{anime.rating}}</div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-400">Anime</div>
+        <div class="text-lg text-gray-800">2023</div>
+      </div>
+      <p class=" text-gray-400 max-h-96 overflow-y-hidden">{{anime.synopsys}}</p>
+      <hr>
+      <div>
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text">Saison:</span>
+          </label>
+          <select (change)="onChangeSeason($event)" class="select select-bordered w-full rounded-none">
+            <option disabled selected>Choisir la saison</option>
+            <option value="1">Saison 1</option>
+            <option value="2">Saison 2</option>
+            <option value="3">Saison 3</option>
+          </select>
+        </div>
+      </div>
+      <div class="h-96 p-1 flex flex-row flex-wrap">
+        <div class="p-1" *ngIf="anime.trailer">
+          <button (click)="SetVideoReader(anime.trailer.video, 'trailers')" type="button"
+            class="btn rounded-sm btn-warning">Trailer</button>
+        </div>
+        <div class="p-1" *ngFor="let episode of episodes">
+          <button (click)="SetVideoReader(episode.video, 'episodes', episode.episode, episode.season)" type="button" class="btn rounded-none btn-warning">Episode {{episode.episode}}</button>
+        </div>
+        <div *ngIf="episodes.length==0">
+          <div class="p-1 w-full">
+            <button disabled  type="button" class="btn rounded-none btn-warning">Pas de video disponible pour le moment.</button>
+          </div>
+        </div>
+        </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<!-- You can open the modal using ID.showModal() method -->
+<dialog id="my_modal_1" class="modal">
+  <form method="dialog" class="modal-box  w-11/12 max-w-lg" #f="ngForm" name="f" (ngSubmit)="f.form.valid && save()">
+    <span type="button" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"><kbd class="kbd">ESC</kbd></span>
+
+   <div>
+    <div class="card w-full">
+      <div class="card-body items-center text-center">
+        <h3 class="card-title font-bold text-lg text-warning">Ajout Video</h3>
+        <div class="form-control w-full">
+          Type:
+          <div class="join ">
+            <input class="w-1/2 join-item btn rounded-none" type="radio" name="type" aria-label="Episode" checked />
+            <input class="w-1/2 join-item btn rounded-none" type="radio" name="type" aria-label="Trailer" />
+          </div>
+        </div>
+        <div class="form-control w-full">
+          <input name="season" type="text" placeholder="Saison" class="input input-bordered rounded-none" #seasonInput="ngModel" [(ngModel)]="newEpisode.season" required/>
+        </div>
+        <div class="form-control w-full">
+          <input name="episode" type="text" placeholder="Episode" class="input input-bordered rounded-none" #episodeInput="ngModel" [(ngModel)]="newEpisode.episode" required/>
+        </div>
+        <div class="form-control w-full">
+          <input type="file" placeholder="email" class="input input-bordered rounded-none hidden w-0 h-0 opacity-0"   (change)="addVideo($event)" #coverUpload/>
+          <button  (click)="coverUpload.click()" type="button" class="btn btn-warning w-full rounded-none">Choisir la video</button>
+          
+          <p class="p-1 video-name">
+              {{videoName}}
+          </p>
+        </div>
+        <div class="flex card-actions justify-between">
+          <button type="submit" class="btn btn-warning   rounded-none">Upload</button>
+          <!-- <button type="button" class="btn btn-ghost   rounded-none" onclick="my_modal_1.hideModal()">Fermer</button> -->
+        </div>
+      </div>
+    </div>
+   </div>
+  </form>
+</dialog>

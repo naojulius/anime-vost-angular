@@ -1,0 +1,45 @@
+<form #f="ngForm" name="f" (ngSubmit)="f.form.valid && login()">
+  <div class="hero min-h-screen" style="background-image: url('/assets/images/covers/2.jpg');">
+    <div class="hero-overlay bg-opacity-90"></div>
+    <div class="hero-content text-center text-neutral-content">
+        <div class="hero-content flex-col lg:flex-row-reverse">
+            <div class="text-center lg:text-left">
+              <h1 class="text-5xl font-bold text-white">Anime Is Life [<span class="text-yellow-400">MADA</span>]</h1>
+              <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+            </div>
+            <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 ">
+              <div class="card-body">
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Email</span>
+                  </label>
+                 
+                  <input  email="true" type="email" placeholder="email" class="input input-bordered"  #emailInput="ngModel" [(ngModel)]="authInfo.email" name="email" required/>
+                  <label class="label" *ngIf="f.submitted && emailInput.invalid">
+                    <span class="label-text-alt text-yellow-600" *ngIf="emailInput.errors?.['required']">Ce champ est recquis</span>
+                    <span class="label-text-alt text-yellow-600" *ngIf="emailInput.errors?.['email']">E-mail invalide</span>
+                  </label>
+                </div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Password</span>
+                  </label>
+                  <input   type="password" placeholder="password" class="input input-bordered"  #passwordInput="ngModel" [(ngModel)]="authInfo.password" name="password" required/>
+                  <label class="label" *ngIf="f.submitted && passwordInput.invalid">
+                    <span class="label-text-alt text-yellow-600" *ngIf="emailInput.errors?.['required']">Ce champ est recquis</span>
+                  </label>
+                  
+                  <label class="label">
+                    <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
+                  </label>
+                </div>
+                <div class="form-control mt-6">
+                  <button *ngIf="!loading"  class="btn btn-warning" type="submit"> Login</button>
+                  <button *ngIf="loading" disabled="disabled"  class="btn btn-warning" type="submit"><span  class="loading loading-spinner"></span> Login in ...</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,185 @@
+<!-- <div class="hero max-h-screen" style="background-image: url('/assets/images/covers/4.jpg');">
+    <div class="hero-overlay bg-opacity-60"></div>
+    <div class="card flex-shrink-0 w-full max-w-6xl shadow-2xl bg-base-100">
+        <div class="card-body">
+           <div class="flex flex-row justify-around">
+            <div class="stack p-1 indicator">
+                <div class="text-center shadow-md w-96  h-96 card bg-base-200"   style="background-image: url('/assets/images/covers/4.jpg'); background-repeat: no-repeat; background-size: cover;">
+                  <div class="card-body">Cover 1</div>
+                  <button class="shadow-2xl btn btn-warning text-white btn-lg btn-circle indicator-item indicator-middle indicator-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>                      
+                  </button>
+                </div> 
+                <div class="text-center shadow w-96 h-96 card bg-base-200">
+                  <div class="card-body">Cover 1</div>
+                </div> 
+                <div class="text-center shadow-sm w-96 h-96 card bg-base-200">
+                  <div class="card-body">Cover 1</div>
+                </div>
+              </div>
+              <div class="stack  p-1 indicator">
+                <div class="text-center shadow-md w-96  h-96 card bg-base-200">
+                  <div class="card-body">Cover 2</div>
+                  <button class="shadow-2xl btn btn-warning text-white btn-lg btn-circle indicator-item indicator-middle indicator-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>                      
+                  </button>
+                </div> 
+                <div class="text-center shadow w-96 h-96 card bg-base-200">
+                  <div class="card-body">Cover 2</div>
+                </div> 
+                <div class="text-center shadow-sm w-96 h-96 card bg-base-200">
+                  <div class="card-body">Cover 2</div>
+                </div>
+              </div>
+              <div class="stack  p-1 indicator">
+                <div class="text-center shadow-md w-96  h-96 card bg-base-200">
+                  <div class="card-body">Cover 3</div>
+                  <button class="shadow-2xl btn btn-warning text-white btn-lg btn-circle indicator-item indicator-middle indicator-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>                      
+                  </button>
+                </div> 
+                <div class="text-center shadow w-96 h-96 card bg-base-200">
+                  <div class="card-body">Cover 3</div>
+                </div> 
+                <div class="text-center shadow-sm w-96 h-96 card bg-base-200">
+                  <div class="card-body">Cover 3</div>
+                </div>
+              </div>
+           </div>
+           <div class="h-6"></div>
+           <hr>
+
+        </div>
+      </div>
+  </div>
+ -->
+ <div class="hero min-h-screen" style="background-image: url('/assets/images/covers/4.jpg');">
+  <div class="hero-overlay bg-opacity-60"></div>
+  <div class="hero-content text-center text-neutral-content">
+    <div class="max-w-md">
+      <h1 class="mb-5 text-5xl font-bold text-yellow-500">Ajout nouvel animé</h1>
+      <p class="mb-5">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+      <button *ngIf="!loading" class="btn btn-warning rounded-none" onclick="my_modal_1.showModal()">Commencer</button>
+      <button *ngIf="loading" type="button" disabled class="btn btn-warning  rounded-none"><span  class="loading loading-spinner"></span> Enregistrement ..</button>
+    </div>
+  </div>
+</div>
+
+<dialog id="my_modal_1" class="modal">
+  <form method="dialog" class="modal-box  w-11/12 max-w-6xl"   #f="ngForm" name="f" (ngSubmit)="f.form.valid && save()">
+    <span type="button" (click)="closeButtonClicked()" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"><kbd class="kbd">ESC</kbd></span>
+    <div class="py-5">
+        <div class="">
+          <ul class="steps w-full">
+            <li class="step  {{typeClass}}">Type</li>
+            <li class="step {{coverClass}}">Couverture</li>
+            <li class="step {{infoClass}}">Info</li>
+          </ul>
+        </div>
+
+       <div class="form step-1 p-4" *ngIf="step=='type'"> 
+          <div class="card w-full">
+            <div class="card-body items-center text-center">
+              <h2 class="card-title text-3xl p-3 text-yellow-500">Choisir un type</h2>
+              <div class="join">
+                <input value="Animé" class="join-item btn rounded-none " type="radio" name="anime-type" aria-label="Animé" #categoryInput="ngModel" [(ngModel)]="newAnimeReq.category" required/>
+                <input value="Movie" class="join-item btn rounded-none" type="radio" name="anime-type" aria-label="Movie" #categoryInput="ngModel" [(ngModel)]="newAnimeReq.category" required />
+                <input value="Scan" class="join-item btn rounded-none" type="radio" name="anime-type" aria-label="Scan" #categoryInput="ngModel" [(ngModel)]="newAnimeReq.category" required/>
+              </div>
+            </div>
+          </div>  
+        </div>
+
+
+        <div class="flex justify-around" *ngIf="step=='cover'">
+          <div class="stack p-1">
+            <div class="text-center shadow-md w-96  h-96 card bg-base-200" [style]="coverImage64">
+              <div class="card-body">Couverture  (1920x1080)</div>
+              <input type="file" class="file-input w-0 h-0 opacity-0 hidden"
+                  (change)="addCoverPhoto($event)" #coverUpload accept="image/*" />
+              <button (click)="coverUpload.click()" type="button" class="shadow-2xl btn btn-warning text-white btn-lg rounded-none rounded-b-2xl font-bold text-4xl">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>                      
+              </button>
+            </div> 
+            <div class="text-center shadow w-96 h-96 card bg-base-200">
+              <div class="card-body">Cover 1</div>
+            </div> 
+            <div class="text-center shadow-sm w-96 h-96 card bg-base-200">
+              <div class="card-body">Cover 1</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form step-1 p-4" *ngIf="step=='info'"> 
+          <div class="card w-full bg-base-300">
+            <div class="card-body ">
+              <h2 class="card-title text-3xl p-3 text-yellow-500">Remplissez la formulaire</h2>
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">Titre</span>
+                </label>
+                <input type="text" name="title" placeholder="Titre" class="input input-bordered" #titleInput="ngModel" [(ngModel)]="newAnimeReq.title" required/>
+              </div>
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">Rating</span>
+                </label>
+                <input name="rating" type="number" min="0" max="10" placeholder="Rating" class="input input-bordered" #ratingInput="ngModel" [(ngModel)]="newAnimeReq.rating" required/>
+              </div>
+              <div class="form-control">
+                <label class="label">
+                  <span class="label-text">Synopsys</span>
+                </label>
+                <textarea name="synopsys" type="text" placeholder="Synopsys" class="h-60 textarea  textarea-bordered" #synopsysInput="ngModel" [(ngModel)]="newAnimeReq.synopsys" required ></textarea>
+              </div>
+            </div>
+          </div>  
+        </div>
+       
+    </div>
+    <div>
+      
+    </div>
+    <div class="modal-action">
+      <button (click)="OnClickPrevStep()" *ngIf="step!= 'type'" type="button" class="btn btn-warning  rounded-none">Prev</button>
+      <button (click)="OnClickNextStep()" *ngIf="step != 'info'" type="button" class="btn btn-warning  rounded-none" >Next</button>
+      <button (click)="OnClickPrevStep()" *ngIf="step!= 'type' && loading" disabled type="button" class="btn btn-warning  rounded-none">Prev</button>
+      <button *ngIf="step == 'info' && !loading" type="submit" class="btn btn-warning  rounded-none">Enregistrer</button>
+      <button *ngIf="step == 'info' && loading" type="button" disabled class="btn btn-warning  rounded-none"><span  class="loading loading-spinner"></span> Enregistrement ..</button>
+    </div>
+  </form>
+</dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

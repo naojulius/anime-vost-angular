@@ -1,0 +1,55 @@
+<app-trendings-anime></app-trendings-anime>
+  <div class="pl-4 pr-8 w-full   mt-4 flex justify-between">
+    <p class="text-3xl text-gray-400">
+       Anime List
+    </p>
+    
+</div>
+<div class="gap-0 w-full flex flex-row justify-start flex-wrap p-3 shadow-lg">
+    <div class="w-1/4 p-1"  *ngFor="let anime of animeList">
+        <!-- <div class="card w-full shadow-xl image-full">
+                <figure><img [src]="anime.cover" alt="Cover" /></figure>
+                <div class="card-body ">
+                <h2 class="card-title">{{anime.title}}</h2>
+                <h2 class=""><div class="badge badge-ghost">Rated 9.5</div></h2>
+               <div class="p-4"></div>
+                <div class="card-actions justify-end">
+                    <div class="card-actions justify-end">
+                        <button class="btn btn-warning rounded-full">Watch Now</button>
+                        <button class="btn btn-circle ">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                      </div>
+                </div>
+                </div>
+            </div> -->
+            <div class="card card-compact w-full bg-base-50 shadow-xl indicator">
+                  <span class="ml-5 w-10 h-10 mt-5 indicator-item indicator-start badge badge-warning mask mask-star-2">{{anime.rating}}</span>
+                <figure><img  src="{{image}}/covers&{{anime.cover}}" alt="Cover" /></figure>
+                <div class="card-body  bg-gray-100">
+                  <h2 class="card-title text-yellow-600 font-bold">{{anime.title}}</h2>
+                 
+                  <div class="h-32 overflow-hidden text-ellipsis p-1">
+                    {{anime.synopsys}}
+                  </div>
+                  <div class="card-actions justify-around">
+                    <button type="button" class="btn rounded-full btn-warning" (click)="OnClickWatchButton(anime)">Watch Now</button>
+                    <button class="btn btn-circle bg-gray-700 text-white ">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                          </svg>
+                          
+                    </button>
+                  </div>
+                </div>
+              </div>
+    </div>
+</div>
+<div class="p-5 flex justify-center">
+    <div class="join">
+        <button class="join-item btn">«</button>
+        <button class="join-item btn">Page 22</button>
+        <button class="join-item btn">»</button>
+      </div>
+</div>
