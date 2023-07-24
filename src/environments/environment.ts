@@ -1,5 +1,6 @@
 export const environment = {
-    api_host: 'http://localhost:8080',
+    // api_host: 'http://localhost:8080',
+    api_host:'https://anime-vost-server-naojulius.vercel.app/',
     anime_detail_uri: "/dashboard/anime-detail",
     dahboard_uri: "/dashboard",
     image_api: "/image",
