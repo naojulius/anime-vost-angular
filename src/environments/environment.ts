@@ -1,8 +1,8 @@
 export const environment = {
-    api_host: 'http://localhost:4000',
+    //api_host: 'http://localhost:4000',
     jwt: '64b90aac8ae23f435971438b',
     login_page: '/auth/login',
-    //api_host:'https://anime-vost-server-naojulius.vercel.app',
+    api_host:'https://anime-vost-server-naojulius.vercel.app',
 
     anime_detail_uri: "/dashboard/anime-detail",
     dahboard_uri: "/dashboard",
