@@ -18,6 +18,8 @@ import { ApiUserService } from './services/api-user.service';
 import { JsonInterceptor } from './interceptors/json-interceptor';
 import { TostService } from 'src/@cores/services/toast.service';
 import { SanitizeHtmlPipe } from 'src/@cores/pipes/sanitize-html.pipe';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { GUARD_PROVIDER } from 'src/@cores/services/guards/guard-provider';
 
 @NgModule({
   declarations: [
@@ -37,9 +39,12 @@ import { SanitizeHtmlPipe } from 'src/@cores/pipes/sanitize-html.pipe';
     ApiService,
     LoadingService,
     TostService,
+    JwtHelperService,
+    GUARD_PROVIDER,
     {provide: AnimeService,  useClass: ApiAnimeService},
     {provide: UserService,  useClass: ApiUserService},
     { provide: HTTP_INTERCEPTORS, useClass: JsonInterceptor, multi: true },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
   ],
   bootstrap: [AppComponent]
 })

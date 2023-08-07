@@ -55,7 +55,7 @@ export class AnimeDetailComponent{
         this.animeService.GetById(true, data.id).subscribe((response: HttpResponse<Anime>)=>{
           this.anime = response.body as Anime;
           if (this.anime.trailer){
-            this.videoStream = environment.stream_video + this.anime.trailer.video + "&" + 'trailers';
+            this.videoStream =  'https://drive.google.com/uc?export=view&id='+ this.anime.trailer.video;  //environment.stream_video + this.anime.trailer.video + "&" + 'trailers';
             
           }
           this.getSeason();
@@ -69,7 +69,7 @@ export class AnimeDetailComponent{
   }
   SetVideoReader($video: string,  type: string, episode?: number, season?: number ){
     this.loadingService.startLoading()
-    this.videoStream =  environment.stream_video + $video + "&" + type;
+    this.videoStream = 'https://drive.google.com/uc?export=view&id='+$video   //environment.stream_video + $video + "&" + type;
     const player = this.elRef.nativeElement.querySelector('video');
     player.load();
     if (episode && season){
@@ -125,7 +125,7 @@ export class AnimeDetailComponent{
       
       let episode_1: Episode = this.episodes.find(x=>x.episode == 1) as Episode;
       if(episode_1){
-        this.videoStream = environment.stream_video + episode_1.video + "&" + 'episodes';
+        this.videoStream = 'https://drive.google.com/uc?export=view&id='+episode_1.video;   //environment.stream_video + episode_1.video + "&" + 'episodes';
         this.show_cover_img = false;
       }else{
         this.show_cover_img = true;
@@ -137,5 +137,9 @@ export class AnimeDetailComponent{
       this.loading = false;
       this.loadingService.stopLoading()
     })
+  }
+  counter = Array;
+  numberReturn(length: number){
+    return new Array(length);
   }
 }

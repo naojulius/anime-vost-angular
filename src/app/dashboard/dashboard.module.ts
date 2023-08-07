@@ -9,6 +9,8 @@ import { AddAnimeModule } from './add-anime/add-anime.module';
 import { SanitizeHtmlPipe } from 'src/@cores/pipes/sanitize-html.pipe';
 import { AdminModule } from './admin/admin.module';
 import { ProfileModule } from './profile/profile.module';
+import { PermissionDirectiveModule } from 'src/@cores/directives/permission.directive.module';
+import { EventsModule } from './events/events.module';
 
 
 
@@ -25,7 +27,9 @@ import { ProfileModule } from './profile/profile.module';
     AnimeDetailModule,
     AddAnimeModule,
     AdminModule,
-    ProfileModule
+    ProfileModule,
+    EventsModule,
+    PermissionDirectiveModule
   ]
 })
 export class DashboardModule { }

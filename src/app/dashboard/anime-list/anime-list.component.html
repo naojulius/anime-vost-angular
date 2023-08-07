@@ -1,55 +1,140 @@
-<app-trendings-anime></app-trendings-anime>
-  <div class="pl-4 pr-8 w-full   mt-4 flex justify-between">
-    <p class="text-3xl text-gray-400">
-       Anime List
-    </p>
-    
-</div>
-<div class="gap-0 w-full flex flex-row justify-start flex-wrap p-3 shadow-lg">
-    <div class="w-1/4 p-1"  *ngFor="let anime of animeList">
-        <!-- <div class="card w-full shadow-xl image-full">
-                <figure><img [src]="anime.cover" alt="Cover" /></figure>
-                <div class="card-body ">
-                <h2 class="card-title">{{anime.title}}</h2>
-                <h2 class=""><div class="badge badge-ghost">Rated 9.5</div></h2>
-               <div class="p-4"></div>
-                <div class="card-actions justify-end">
-                    <div class="card-actions justify-end">
-                        <button class="btn btn-warning rounded-full">Watch Now</button>
-                        <button class="btn btn-circle ">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                        </button>
-                      </div>
-                </div>
-                </div>
-            </div> -->
-            <div class="card card-compact w-full bg-base-50 shadow-xl indicator">
-                  <span class="ml-5 w-10 h-10 mt-5 indicator-item indicator-start badge badge-warning mask mask-star-2">{{anime.rating}}</span>
-                <figure><img  src="{{image}}/covers&{{anime.cover}}" alt="Cover" /></figure>
-                <div class="card-body  bg-gray-100">
-                  <h2 class="card-title text-yellow-600 font-bold">{{anime.title}}</h2>
-                 
-                  <div class="h-32 overflow-hidden text-ellipsis p-1">
-                    {{anime.synopsys}}
-                  </div>
-                  <div class="card-actions justify-around">
-                    <button type="button" class="btn rounded-full btn-warning" (click)="OnClickWatchButton(anime)">Watch Now</button>
-                    <button class="btn btn-circle bg-gray-700 text-white ">
-
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                          </svg>
-                          
-                    </button>
-                  </div>
-                </div>
-              </div>
+<div class="navbar">
+  <div class="flex-1 ">
+    <button onclick="searchbox_modal.showModal()" class="btn btn-warning text-white rounded-none">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+        <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+      </svg>
+      
+    </button>
+  </div>
+  <div class="flex-none gap-2 z-30">
+    <div class="dropdown dropdown-end">
+      <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 rounded-full">
+          <img src="/assets/images/covers/4.jpg" />
+        </div>
+      </label>
+      <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-64">
+        <li class="">
+          <div class="justify-between">
+            {{ userService.getParam("name")}} {{ userService.getParam("surname")}}
+            <span class="badge">
+              <span class="p-1" *ngFor=" let role of userService.getParam('roles')">{{role}}</span>
+            </span>
+          </div>
+        </li>
+        <li><a (click)="onLogOut()">Déconnexion</a></li>
+      </ul>
     </div>
+  </div>
 </div>
-<div class="p-5 flex justify-center">
-    <div class="join">
-        <button class="join-item btn">«</button>
-        <button class="join-item btn">Page 22</button>
-        <button class="join-item btn">»</button>
+<app-trendings-anime></app-trendings-anime>
+<div class="pl-4 pr-8 w-full   mt-4 flex justify-between">
+  <p class="text-3xl text-gray-400">
+    Anime List
+  </p>
+
+</div>
+<div class="gap-0 w-full flex flex-row flex-wrap justify-start  p-3 shadow-lg"  infiniteScroll
+[infiniteScrollDistance]="1"
+[infiniteScrollThrottle]="1000"
+(scrolled)="onScroll()">
+  <div class="sm:w-full lg:w-1/4 md:w-1/2 xl:w-1/4 2xl:w-1/4 p-1 "
+    *ngFor="let anime of table.data ">
+    <!-- | paginate: { itemsPerPage: tablereq.resultsPerPage, currentPage:  table.page, totalItems: table.recordsTotal } -->
+    <div class="card card-compact w-full bg-base-50 indicator">
+      <span
+        class="ml-5 w-10 h-10 mt-5 indicator-item indicator-start badge badge-warning mask mask-star-2">{{anime.rating}}</span>
+      <figure>
+        <img src="https://drive.google.com/uc?export=view&id={{anime.cover}}" alt="Cover" />
+      </figure>
+      <div class="card-body  bg-gray-100">
+        <h2 class="card-title text-yellow-600 font-bold">{{anime.title}}</h2>
+        <div class="h-32 overflow-hidden text-ellipsis p-1">
+          {{anime.synopsys}}
+        </div>
+       
+        <div class="card-actions justify-around">
+          <button type="button" class="btn rounded-none  btn-warning" (click)="OnClickWatchButton(anime)">Watch
+            Now</button>
+          <button class="btn rounded-none  bg-gray-700 text-white ">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </button>
+        </div>
       </div>
+    </div>
+  </div>
 </div>
+
+<footer *ngIf="loading" class="footer footer-center p-4  text-base-content">
+  <div>
+    <span  class="loading bg-white loading-spinner loading-lg"></span>
+  </div>
+</footer>
+
+
+<!-- You can open the modal using ID.showModal() method -->
+<dialog id="searchbox_modal" class="modal">
+  <form method="dialog" class="modal-box w-11/12 max-w-5xl">
+    <h3 class="font-bold text-lg">
+      <input [formControl]="searchInput"  type="text" placeholder="Type here" class="input input-bordered w-full shadow-sm rounded-none focus:border-none" />
+    </h3>
+    <div class="p-4 w-full mt-8">
+      <div class="overflow-x-auto">
+        <table class="table" *ngIf="searchedAnime.length > 0">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th>Titre</th>
+              <!-- <th>Job</th>
+              <th>Favorite Color</th> -->
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- row 1 -->
+            <tr *ngFor="let anime of searchedAnime">
+              <td>
+                <div class="flex items-center space-x-3">
+                  <div class="avatar">
+                    <div class="mask mask-squircle w-12 h-12">
+                      <img src="https://drive.google.com/uc?export=view&id={{anime.cover}}" alt="cover" />
+                    </div>
+                  </div>
+                  <div>
+                    <div class="font-bold">{{anime.title}}</div>
+                    <div class="text-sm opacity-50">{{anime.rating}}</div>
+                  </div>
+                </div>
+              </td>
+              <!-- <td>
+                Zemlak, Daniel and Leannon
+                <br/>
+                <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
+              </td>
+              <td>Purple</td> -->
+              <th>
+                <button class="btn btn-ghost btn-xs" (click)="OnClickWatchButton(anime)" >details</button>
+              </th>
+            </tr>
+            <!-- row 2 -->
+
+          </tbody>
+          
+
+        </table>
+        <div class="p-5" *ngIf="searchedAnime.length == 0">
+          <button class="btn w-full rounded-none h-20" disabled="disabled">Pas de donné a afficher...</button>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="modal-action">
+      <!-- if there is a button, it will close the modal -->
+      <button class="btn">Close</button>
+    </div>
+  </form>
+</dialog>

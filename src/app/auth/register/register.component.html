@@ -62,7 +62,11 @@
             <label class="label" *ngIf="password_not_matched != ''">
               <span class="label-text text-xs text-yellow-600">Mot de passe non identique.</span>
             </label>
+            <label class="label">
+              <a href="/auth/login" class="label-text-alt link link-hover">page de connexion.</a>
+            </label>
           </div>
+          
           <div class="form-control mt-6 flex flex-row">
             <button *ngIf="!loading"  type="submit" class="btn btn-warning w-full ">Register</button>
             <button *ngIf="loading" disabled="disabled"  class="btn btn-warning w-full" type="submit"><span  class="loading loading-spinner"></span> Registering ...</button>

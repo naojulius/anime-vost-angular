@@ -11,5 +11,6 @@ export class Anime{
     "trending": boolean;
     "category": CategoryEnum;
     "trailer": Trailer;
-    "keyCode": string;
+    "seasonNumber": number | undefined;
+    "favourite": boolean;
 }

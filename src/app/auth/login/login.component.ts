@@ -29,12 +29,14 @@ export class LoginComponent {
   login(){
     this.loading = true;
     this.loadingService.startLoading();
-    this.userService.Login(true, this.authInfo).subscribe((response: HttpResponse<User>)=>{
+    this.userService.Login(true, this.authInfo).subscribe((response: HttpResponse<string>)=>{
       this.toastService.show("Connexion avec succès.")
+     if(response.body){
+      localStorage.setItem(environment.jwt, response.body);
+     }
       this.loading = false;
       this.loadingService.stopLoading();
       this.router.navigateByUrl(environment.dahboard_uri)
-      
     }, error =>{
       this.loading = false;
       this.loadingService.stopLoading();

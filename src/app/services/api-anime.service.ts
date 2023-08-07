@@ -2,7 +2,11 @@ import { HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, catchError, map } from "rxjs";
 import { Anime } from "src/@cores/entity/anime";
+import { DataTable } from "src/@cores/entity/data-table";
 import { Episode } from "src/@cores/entity/episode";
+import { Favourite } from "src/@cores/entity/favourite";
+import { FavouriteReq } from "src/@cores/entity/favourite-req";
+import { DataTableReq } from "src/@cores/entity/service/data-table-req";
 import { AnimeService } from "src/@cores/services/anime.service";
 import { ApiService } from "src/@cores/services/api.service";
 import { environment } from "src/environments/environment";
@@ -10,6 +14,56 @@ import { environment } from "src/environments/environment";
 @Injectable()
 
 export class ApiAnimeService extends AnimeService {
+    override RemoveToFavourite(showErrorNotif: boolean, favouriteReq: FavouriteReq): Observable<HttpResponse<never> | HttpResponse<Favourite>> {
+        return this.apiService.post<FavouriteReq>(environment.remove_favourite_api, favouriteReq).pipe(
+            map((x: HttpResponse<any> | Observable<Favourite>) => {
+                return this.handleResponse<any>(showErrorNotif, x);
+            }),
+            catchError(error => {
+                return this.catchError(showErrorNotif, error);
+            })
+        );
+    }
+    override GetFavourite(showErrorNotif: boolean, owner: string): Observable<HttpResponse<never> | HttpResponse<Favourite>> {
+        return this.apiService.get(environment.get_favourite_api + owner).pipe(
+            map((x: HttpResponse<any> | Observable<Favourite>) => {
+                return this.handleResponse<any>(showErrorNotif, x);
+            }),
+            catchError(error => {
+                return this.catchError(showErrorNotif, error);
+            })
+        );
+    }
+    override AddToFavourite(showErrorNotif: boolean, favouriteReq: FavouriteReq): Observable<HttpResponse<never> | HttpResponse<Favourite>> {
+        return this.apiService.post<FavouriteReq>(environment.add_favourite_api, favouriteReq).pipe(
+            map((x: HttpResponse<any> | Observable<Favourite>) => {
+                return this.handleResponse<any>(showErrorNotif, x);
+            }),
+            catchError(error => {
+                return this.catchError(showErrorNotif, error);
+            })
+        );
+    }
+    override SearchAnime(showErrorNotif: boolean, key: string): Observable<HttpResponse<Anime[]>> {
+        return this.apiService.post<any>(environment.search_anime_api, {key: key}).pipe(
+            map((x: HttpResponse<any> | Observable<Array<Anime>>) => {
+                return this.handleResponse<any>(showErrorNotif, x);
+            }),
+            catchError(error => {
+                return this.catchError(showErrorNotif, error);
+            })
+        );
+    }
+    override GetAnimeTable(showErrorNotif: boolean, table: DataTableReq): Observable<HttpResponse<DataTable>> {
+        return this.apiService.post<DataTableReq>(environment.get_animetable_api, table).pipe(
+            map((x: HttpResponse<any> | Observable<DataTable>) => {
+                return this.handleResponse<any>(showErrorNotif, x);
+            }),
+            catchError(error => {
+                return this.catchError(showErrorNotif, error);
+            })
+        );
+    }
     override NewEpisode(showErrorNotif: boolean, formdata: FormData): Observable<HttpResponse<never> | HttpResponse<Episode>> {
         return this.apiService.postMultipart<FormData>(environment.new_episode_api, formdata).pipe(
             map((x: HttpResponse<any> | Observable<Episode>) => {

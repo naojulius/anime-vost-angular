@@ -10,4 +10,7 @@ export class User{
     "birthDate": Date;
     "gender": string;
     "authentication": Authentication;
+    "disabled": boolean;
+    "createDate": Date;
+    "roles": Array<string>;
 }
