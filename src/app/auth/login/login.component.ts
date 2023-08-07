@@ -22,8 +22,7 @@ export class LoginComponent {
     private toastService: TostService,
     private router: Router,
   ){
-    this.authInfo.email = "nao@email.com";
-    this.authInfo.password = "123456789";
+    
   }
   authInfo: AuthInfo = new AuthInfo();
   login(){
